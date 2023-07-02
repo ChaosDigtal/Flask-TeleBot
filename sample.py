@@ -114,7 +114,7 @@ def callback_query(call):
     elif call.data == "ic_Withdraw":
         bot.answer_callback_query(call.id, "Withdraw")
         bot.send_message(call.message.chat.id, "Please choose a crypto to withdraw", reply_markup=gen_withdraw())
-    elif call.data == "ic_ChkEarnings":
+    elif call.data == "ic_ChkEarning":
         bot.answer_callback_query(call.id, "ChkGroup")
         bot.send_message(call.message.chat.id, "Please choose a crypto.", reply_markup=gen_earning())
     elif call.data == "ic_PbGroup":
