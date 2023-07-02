@@ -198,55 +198,55 @@ def callback_query(call):
             return
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
         bot.register_next_step_handler(call.message, withdrawBudget, 6, user[crypto])
-    elif call.data == ("e"+crypto[0]):
+    elif call.data == ("e"+cryptos[0]):
         crypto = c23[cryptos[0]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
         if user != None:
             earned = user[crypto]
-        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {crypto[0]}')
-    elif call.data == ("e"+crypto[1]):
+        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[0]}')
+    elif call.data == ("e"+cryptos[1]):
         crypto = c23[cryptos[1]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
         if user != None:
             earned = user[crypto]
-        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {crypto[1]}')    
-    elif call.data == ("e"+crypto[2]):
+        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[1]}')    
+    elif call.data == ("e"+cryptos[2]):
         crypto = c23[cryptos[2]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
         if user != None:
             earned = user[crypto]
-        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {crypto[2]}')
-    elif call.data == ("e"+crypto[3]):
+        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[2]}')
+    elif call.data == ("e"+cryptos[3]):
         crypto = c23[cryptos[3]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
         if user != None:
             earned = user[crypto]
-        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {crypto[3]}')
-    elif call.data == ("e"+crypto[4]):
+        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[3]}')
+    elif call.data == ("e"+cryptos[4]):
         crypto = c23[cryptos[4]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
         if user != None:
             earned = user[crypto]
-        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {crypto[4]}')
-    elif call.data == ("e"+crypto[5]):
+        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[4]}')
+    elif call.data == ("e"+cryptos[5]):
         crypto = c23[cryptos[5]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
         if user != None:
             earned = user[crypto]
-        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {crypto[5]}')
-    elif call.data == ("e"+crypto[6]):
+        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[5]}')
+    elif call.data == ("e"+cryptos[6]):
         crypto = c23[cryptos[6]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
         if user != None:
             earned = user[crypto]
-        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {crypto[6]}')
+        bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[6]}')
     elif call.data == "ic_no":
         bot.send_message(call.message.chat.id, text="Investment Canceled!\n\n/start command for menu!")
     elif call.data.split(':')[0] == "ic_yes":
