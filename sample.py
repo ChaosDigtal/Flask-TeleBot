@@ -274,7 +274,7 @@ def message_handler(message):
         bot.send_message(message.chat.id, text="/start command for menu!")
 
 def getBudget(message, crypto):
-    bot.send_message(message.chat.id, f'Do you agree to invest {message.text}$ {cryptos[crypto]} to this platform?', reply_markup=gen_wallet(message.text, crypto))
+    bot.send_message(message.chat.id, f'Do you agree to invest {float(message.text)}$ {cryptos[crypto]} to this platform?', reply_markup=gen_wallet(float(message.text), crypto))
 
 def finishTransaction(message, budget, crypto):
     print(message.text)
