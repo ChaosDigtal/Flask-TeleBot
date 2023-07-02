@@ -279,7 +279,7 @@ def getBudget(message, crypto):
         return
     try:
         budget = float(message.text)
-        bot.send_message(message.chat.id, f'Do you agree to invest {float(message.text)}$ {cryptos[crypto]} to this platform?', reply_markup=gen_wallet(float(message.text), crypto))
+        bot.send_message(message.chat.id, f'Do you agree to invest {budget}$ {cryptos[crypto]} to this platform?', reply_markup=gen_wallet(budget, crypto))
     except ValueError:
         bot.send_message(message.chat.id, "Input valid number!")
         bot.register_next_step_handler(message, getBudget, crypto)
