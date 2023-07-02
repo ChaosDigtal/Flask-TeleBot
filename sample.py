@@ -274,10 +274,16 @@ def message_handler(message):
         bot.send_message(message.chat.id, text="/start command for menu!")
 
 def getBudget(message, crypto):
+    if message.text == "/start":
+        bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
+        return
     bot.send_message(message.chat.id, f'Do you agree to invest {float(message.text)}$ {cryptos[crypto]} to this platform?', reply_markup=gen_wallet(float(message.text), crypto))
 
 def finishTransaction(message, budget, crypto):
     print(message.text)
+    if message.text == "/start":
+        bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
+        return
     bot.send_message(message.chat.id, text="Thanks for your investment!!!\n\nYour submission is pending and will be confirmed and accepted soon!\n\n/start command for menu!")
     pending_contract.insert_one({
         "username": message.from_user.username,
