@@ -215,6 +215,7 @@ def getBudget(message, crypto):
     bot.send_message(message.chat.id, f'Do you agree to invest {message.text}$ {cryptos[crypto]} to this platform?', reply_markup=gen_wallet(message.text, crypto))
 
 def finishTransaction(message, budget, crypto):
+    print(message.text)
     bot.send_message(message.chat.id, text="Thanks for your investment!!!\n\nYour submission is pending and will be confirmed and accepted soon!\n\n/start command for menu!")
     pending_contract.insert_one({
         "username": message.from_user.username,
