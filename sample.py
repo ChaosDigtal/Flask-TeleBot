@@ -144,7 +144,7 @@ def callback_query(call):
             bot.send_message(call.message.chat.id, "You can withdraw nothing!")
             return
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
-        bot.register_next_step_handler(call.message, withdrawBudget, 0, user[crypto])
+        bot.register_next_step_handler(call.message, withdrawBudget, 1, user[crypto])
     elif call.data == ("w"+cryptos[2]):
         crypto = c23[cryptos[2]]
         user = User.find_one({"chat_id": call.message.chat.id})
@@ -152,7 +152,7 @@ def callback_query(call):
             bot.send_message(call.message.chat.id, "You can withdraw nothing!")
             return
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
-        bot.register_next_step_handler(call.message, withdrawBudget, 0, user[crypto])
+        bot.register_next_step_handler(call.message, withdrawBudget, 2, user[crypto])
     elif call.data == ("w"+cryptos[3]):
         crypto = c23[cryptos[3]]
         user = User.find_one({"chat_id": call.message.chat.id})
@@ -160,7 +160,7 @@ def callback_query(call):
             bot.send_message(call.message.chat.id, "You can withdraw nothing!")
             return
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
-        bot.register_next_step_handler(call.message, withdrawBudget, 0, user[crypto])
+        bot.register_next_step_handler(call.message, withdrawBudget, 3, user[crypto])
     elif call.data == ("w"+cryptos[4]):
         crypto = c23[cryptos[4]]
         user = User.find_one({"chat_id": call.message.chat.id})
@@ -168,7 +168,7 @@ def callback_query(call):
             bot.send_message(call.message.chat.id, "You can withdraw nothing!")
             return
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
-        bot.register_next_step_handler(call.message, withdrawBudget, 0, user[crypto])
+        bot.register_next_step_handler(call.message, withdrawBudget, 4, user[crypto])
     elif call.data == ("w"+cryptos[5]):
         crypto = c23[cryptos[5]]
         user = User.find_one({"chat_id": call.message.chat.id})
@@ -176,7 +176,7 @@ def callback_query(call):
             bot.send_message(call.message.chat.id, "You can withdraw nothing!")
             return
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
-        bot.register_next_step_handler(call.message, withdrawBudget, 0, user[crypto])
+        bot.register_next_step_handler(call.message, withdrawBudget, 5, user[crypto])
     elif call.data == ("w"+cryptos[6]):
         crypto = c23[cryptos[6]]
         user = User.find_one({"chat_id": call.message.chat.id})
@@ -184,7 +184,7 @@ def callback_query(call):
             bot.send_message(call.message.chat.id, "You can withdraw nothing!")
             return
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
-        bot.register_next_step_handler(call.message, withdrawBudget, 0, user[crypto])
+        bot.register_next_step_handler(call.message, withdrawBudget, 6, user[crypto])
     elif call.data == "ic_no":
         bot.send_message(call.message.chat.id, text="Investment Canceled!\n\n/start command for menu!")
     elif call.data.split(':')[0] == "ic_yes":
