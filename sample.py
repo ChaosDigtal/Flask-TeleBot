@@ -266,12 +266,9 @@ def callback_query(call):
         })
         bot.send_message(call.message.chat.id, "Your request has been sent successfully!\n\nPlease wait for acception!")
 
-@bot.message_handler(func=lambda message: True)
+r@bot.message_handle(commands=['start'])
 def message_handler(message):
-    if message.text == "/start":
-        bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
-    else:
-        bot.send_message(message.chat.id, text="/start command for menu!")
+    bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
 
 def getBudget(message, crypto):
     if message.text == "/start":
