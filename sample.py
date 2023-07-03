@@ -287,7 +287,6 @@ def finishTransaction(message, budget, crypto):
         bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
         return
     bot.send_message(message.chat.id, text="Thanks for your investment!!!\n\nYour submission is pending and will be confirmed and accepted soon!\n\n/start command for menu!")
-    return
     pending_contract.insert_one({
         "username": message.from_user.username,
         "chat_id": int(message.chat.id),
