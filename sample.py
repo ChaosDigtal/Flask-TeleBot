@@ -33,7 +33,7 @@ app = Flask(__name__)
 
 def gen_cbdata(flag, s):
     if flag == 0:
-        return None
+        return "None"
     return s
 
 def gen_menu(rw = 2):
