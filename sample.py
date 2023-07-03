@@ -266,7 +266,7 @@ def callback_query(call):
         })
         bot.send_message(call.message.chat.id, "Your request has been sent successfully!\n\nPlease wait for acception!")
 
-r@bot.message_handle(commands=['start'])
+@bot.message_handle(commands=['start'])
 def message_handler(message):
     bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
 
