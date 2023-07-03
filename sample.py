@@ -268,9 +268,7 @@ def callback_query(call):
 
 @bot.message_handler(func=lambda message: True)
 def message_handler(message):
-    if message.chat.id in bot.active_chats:
-        return
-    elif message.text == "/start":
+    if message.text == "/start":
         bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
     else:
         bot.send_message(message.chat.id, text="/start command for menu!")
