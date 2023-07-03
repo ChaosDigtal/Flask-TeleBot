@@ -31,56 +31,60 @@ User = db['user']
 
 app = Flask(__name__)
 
+def gen_cbdata(flag, s):
+    if flag == 0:
+        return None
+    return s
 
 def gen_menu(rw = 2):
     markup = InlineKeyboardMarkup()
-    markup.row_width = rw
-    markup.add(InlineKeyboardButton("Deposit", callback_data="ic_Deposit"))
-    markup.add(InlineKeyboardButton("Withdraw", callback_data="ic_Withdraw"))
-    markup.add(InlineKeyboardButton("Check Earnings", callback_data="ic_ChkEarning"))
-    markup.add(InlineKeyboardButton("Public Group", url=f"https://t.me/fly15investment", callback_data="ic_PbGroup"))
-    markup.add(InlineKeyboardButton("Contact Support", url=f"https://t.me/fly15support", callback_data="ic_ContactSupport"))
+    markup.row_width = 2
+    markup.add(InlineKeyboardButton("Deposit", callback_data=gen_cbdata(rw, "ic_Deposit")))
+    markup.add(InlineKeyboardButton("Withdraw", callback_data=gen_cbdata(rw, "ic_Withdraw")))
+    markup.add(InlineKeyboardButton("Check Earnings", callback_data=gen_cbdata(rw, "ic_ChkEarning")))
+    markup.add(InlineKeyboardButton("Public Group", url=f"https://t.me/fly15investment", callback_data=gen_cbdata(rw, "ic_PbGroup")))
+    markup.add(InlineKeyboardButton("Contact Support", url=f"https://t.me/fly15support", callback_data=gen_cbdata(rw, "ic_ContactSupport")))
     return markup
 
 def gen_crypto(rw = 2):
     markup = InlineKeyboardMarkup()
-    markup.row_width = rw
-    markup.add(InlineKeyboardButton(cryptos[0], callback_data=cryptos[0]))
-    markup.add(InlineKeyboardButton(cryptos[1], callback_data=cryptos[1]))
-    markup.add(InlineKeyboardButton(cryptos[2], callback_data=cryptos[2]))
-    markup.add(InlineKeyboardButton(cryptos[3], callback_data=cryptos[3]))
-    markup.add(InlineKeyboardButton(cryptos[4], callback_data=cryptos[4]))
-    markup.add(InlineKeyboardButton(cryptos[5], callback_data=cryptos[5]))
-    markup.add(InlineKeyboardButton(cryptos[6], callback_data=cryptos[6]))
+    markup.row_width = 2
+    markup.add(InlineKeyboardButton(cryptos[0], callback_data=gen_cbdata(rw, cryptos[0])))
+    markup.add(InlineKeyboardButton(cryptos[1], callback_data=gen_cbdata(rw, cryptos[1])))
+    markup.add(InlineKeyboardButton(cryptos[2], callback_data=gen_cbdata(rw, cryptos[2])))
+    markup.add(InlineKeyboardButton(cryptos[3], callback_data=gen_cbdata(rw, cryptos[3])))
+    markup.add(InlineKeyboardButton(cryptos[4], callback_data=gen_cbdata(rw, cryptos[4])))
+    markup.add(InlineKeyboardButton(cryptos[5], callback_data=gen_cbdata(rw, cryptos[5])))
+    markup.add(InlineKeyboardButton(cryptos[6], callback_data=gen_cbdata(rw, cryptos[6])))
     return markup
 
 def gen_withdraw(rw = 2):
     markup = InlineKeyboardMarkup()
-    markup.row_width = rw
-    markup.add(InlineKeyboardButton(cryptos[0], callback_data="w"+cryptos[0]))
-    markup.add(InlineKeyboardButton(cryptos[1], callback_data="w"+cryptos[1]))
-    markup.add(InlineKeyboardButton(cryptos[2], callback_data="w"+cryptos[2]))
-    markup.add(InlineKeyboardButton(cryptos[3], callback_data="w"+cryptos[3]))
-    markup.add(InlineKeyboardButton(cryptos[4], callback_data="w"+cryptos[4]))
-    markup.add(InlineKeyboardButton(cryptos[5], callback_data="w"+cryptos[5]))
-    markup.add(InlineKeyboardButton(cryptos[6], callback_data="w"+cryptos[6]))
+    markup.row_width = 2
+    markup.add(InlineKeyboardButton(cryptos[0], callback_data=gen_cbdata(rw, "w"+cryptos[0])))
+    markup.add(InlineKeyboardButton(cryptos[1], callback_data=gen_cbdata(rw, "w"+cryptos[1])))
+    markup.add(InlineKeyboardButton(cryptos[2], callback_data=gen_cbdata(rw, "w"+cryptos[2])))
+    markup.add(InlineKeyboardButton(cryptos[3], callback_data=gen_cbdata(rw, "w"+cryptos[3])))
+    markup.add(InlineKeyboardButton(cryptos[4], callback_data=gen_cbdata(rw, "w"+cryptos[4])))
+    markup.add(InlineKeyboardButton(cryptos[5], callback_data=gen_cbdata(rw, "w"+cryptos[5])))
+    markup.add(InlineKeyboardButton(cryptos[6], callback_data=gen_cbdata(rw, "w"+cryptos[6])))
     return markup
 
 def gen_earning(rw = 2):
     markup = InlineKeyboardMarkup()
-    markup.row_width = rw
-    markup.add(InlineKeyboardButton(cryptos[0], callback_data="e"+cryptos[0]))
-    markup.add(InlineKeyboardButton(cryptos[1], callback_data="e"+cryptos[1]))
-    markup.add(InlineKeyboardButton(cryptos[2], callback_data="e"+cryptos[2]))
-    markup.add(InlineKeyboardButton(cryptos[3], callback_data="e"+cryptos[3]))
-    markup.add(InlineKeyboardButton(cryptos[4], callback_data="e"+cryptos[4]))
-    markup.add(InlineKeyboardButton(cryptos[5], callback_data="e"+cryptos[5]))
-    markup.add(InlineKeyboardButton(cryptos[6], callback_data="e"+cryptos[6]))
+    markup.row_width = 2
+    markup.add(InlineKeyboardButton(cryptos[0], callback_data=gen_cbdata(rw, "e"+cryptos[0])))
+    markup.add(InlineKeyboardButton(cryptos[1], callback_data=gen_cbdata(rw, "e"+cryptos[1])))
+    markup.add(InlineKeyboardButton(cryptos[2], callback_data=gen_cbdata(rw, "e"+cryptos[2])))
+    markup.add(InlineKeyboardButton(cryptos[3], callback_data=gen_cbdata(rw, "e"+cryptos[3])))
+    markup.add(InlineKeyboardButton(cryptos[4], callback_data=gen_cbdata(rw, "e"+cryptos[4])))
+    markup.add(InlineKeyboardButton(cryptos[5], callback_data=gen_cbdata(rw, "e"+cryptos[5])))
+    markup.add(InlineKeyboardButton(cryptos[6], callback_data=gen_cbdata(rw, "e"+cryptos[6])))
     return markup
 
 def gen_wallet(budget, crypto, rw = 2):
-    yes_button = InlineKeyboardButton("Yes", callback_data='ic_yes:{}:{}'.format(budget, crypto))
-    no_button = InlineKeyboardButton("No", callback_data="ic_no")
+    yes_button = InlineKeyboardButton("Yes", callback_data=gen_cbdata(rw, 'ic_yes:{}:{}'.format(budget, crypto)))
+    no_button = InlineKeyboardButton("No", callback_data=gen_cbdata(rw, "ic_no"))
 
     markup = InlineKeyboardMarkup(
         [
@@ -90,12 +94,11 @@ def gen_wallet(budget, crypto, rw = 2):
             ]   
         ]
     )
-    markup.row_width = rw
     return markup
 
 def gen_withdraw_confirm(username, crypto, withdraw, address, rw = 2):
-    yes_button = InlineKeyboardButton("Yes", callback_data='wc_yes:{}:{}:{}:{}'.format(username, crypto, withdraw, address))
-    no_button = InlineKeyboardButton("No", callback_data="wc_no")
+    yes_button = InlineKeyboardButton("Yes", callback_data=gen_cbdata(rw, 'wc_yes:{}:{}:{}:{}'.format(username, crypto, withdraw, address)))
+    no_button = InlineKeyboardButton("No", callback_data=gen_cbdata(rw, "wc_no"))
 
     markup = InlineKeyboardMarkup(
         [
@@ -105,7 +108,6 @@ def gen_withdraw_confirm(username, crypto, withdraw, address, rw = 2):
             ]   
         ]
     )
-    markup.row_width = rw
     return markup
 
 @bot.callback_query_handler(func=lambda call: True)
