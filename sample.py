@@ -84,7 +84,7 @@ def gen_earning(rw = 2):
 
 def gen_wallet(budget, crypto, rw = 2):
     yes_button = InlineKeyboardButton("Yes", callback_data=gen_cbdata(rw, 'ic_yes:{}:{}'.format(budget, crypto)))
-    no_button = InlineKeyboardButton("No", callback_data=gen_cbdata(rw, "ic_no"))
+    no_button = InlineKeyboardButton("No", callback_data=gen_cbdata(rw, 'ic_no:{}:{}'.format(budget, crypto)))
 
     markup = InlineKeyboardMarkup(
         [
@@ -98,7 +98,7 @@ def gen_wallet(budget, crypto, rw = 2):
 
 def gen_withdraw_confirm(username, crypto, withdraw, address, rw = 2):
     yes_button = InlineKeyboardButton("Yes", callback_data=gen_cbdata(rw, 'wc_yes:{}:{}:{}:{}'.format(username, crypto, withdraw, address)))
-    no_button = InlineKeyboardButton("No", callback_data=gen_cbdata(rw, "wc_no"))
+    no_button = InlineKeyboardButton("No", callback_data=gen_cbdata(rw, 'wc_no:{}:{}:{}:{}'.format(username, crypto, withdraw, address)))
 
     markup = InlineKeyboardMarkup(
         [
@@ -273,14 +273,17 @@ def callback_query(call):
             earned = user[crypto]
         bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[6]}')
     elif call.data == "ic_no":
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto.", reply_markup=gen_earning(0))
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Do you agree to invest {call.data.split(":")[1]}$ {cryptos[int(call.data.split(":")[2])]} to this platform?', reply_markup=gen_wallet(call.data.split(':')[1], call.data.split(':')[2], 0))
         bot.send_message(call.message.chat.id, text="Investment Canceled!\n\n/start command for menu!")
     elif call.data.split(':')[0] == "ic_yes":
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Do you agree to invest {call.data.split(":")[1]}$ {cryptos[int(call.data.split(":")[2])]} to this platform?', reply_markup=gen_wallet(call.data.split(':')[1], call.data.split(':')[2], 0))
         bot.send_message(call.message.chat.id, text=f'Please deposit to the following address:\n\n{wallet[int(call.data.split(":")[2])]}\n\nOnce you deposit, input your transaction hash to finish your investment')
         bot.register_next_step_handler(call.message, finishTransaction, call.data.split(':')[1], call.data.split(':')[2])
     elif call.data == "wc_no":
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Are you sure to withdraw {call.data.split(":")[3]}$ to follwing address?\n\n{call.data.split(":")[4]}', reply_markup=gen_wallet("", "", "", "", 0))
         bot.send_message(call.message.chat.id, "Withdraw canceled\n\n/start command for menu.")
     elif call.data.split(':')[0] == "wc_yes":
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Are you sure to withdraw {call.data.split(":")[3]}$ to follwing address?\n\n{call.data.split(":")[4]}', reply_markup=gen_wallet("", "", "", "", 0))
         array = call.data.split(':')
         pending_withdraw.insert_one({
             "username": array[1],
