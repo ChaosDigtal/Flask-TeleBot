@@ -32,9 +32,9 @@ User = db['user']
 app = Flask(__name__)
 
 
-def gen_menu():
+def gen_menu(rw = 2):
     markup = InlineKeyboardMarkup()
-    markup.row_width = 2
+    markup.row_width = rw
     markup.add(InlineKeyboardButton("Deposit", callback_data="ic_Deposit"))
     markup.add(InlineKeyboardButton("Withdraw", callback_data="ic_Withdraw"))
     markup.add(InlineKeyboardButton("Check Earnings", callback_data="ic_ChkEarning"))
