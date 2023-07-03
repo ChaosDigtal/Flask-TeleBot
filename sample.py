@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from flask import Flask, request
 from datetime import datetime
 
-TELEGRAM_TOKEN = '6045174097:AAHYV53yHblVs5_KXQGZNDq4JQE5ThB4vYI'
+TELEGRAM_TOKEN = '6354853592:AAG5_pH0dnAm_d4eoENsWXEQIQ64tLz5Frk'
 
 cryptos = ["Bitcoin", "BNB BSC", "Tether USDT (TRC20)", "BUSD BSC", "TRON TRX", "Bitcoin Cash", "Litecoin"]
 wallet = ["bc1qs4fgmy5md8se2wdztdp7ekzh9mv0lclw4e6nqw", "0x629060ad93Eab915656797206429607FB64E0D88", "TMYPiJkBbVEg6Bhxa2Y4k6dMWmNjUKbVfj", "0x629060ad93Eab915656797206429607FB64E0D88", "TMYPiJkBbVEg6Bhxa2Y4k6dMWmNjUKbVfj", "qr5nfekx2ut54ht30ww43t54xt4736l22gp5q9wxgh", "LWJzcpuiYNkwVHw1xCu3cETGnXkiyCpQhd"]
@@ -268,7 +268,9 @@ def callback_query(call):
 
 @bot.message_handler(func=lambda message: True)
 def message_handler(message):
-    if message.text == "/start":
+    if message.chat.id in bot.active_chats:
+        return
+    elif message.text == "/start":
         bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
     else:
         bot.send_message(message.chat.id, text="/start command for menu!")
@@ -290,6 +292,7 @@ def finishTransaction(message, budget, crypto):
         bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
         return
     bot.send_message(message.chat.id, text="Thanks for your investment!!!\n\nYour submission is pending and will be confirmed and accepted soon!\n\n/start command for menu!")
+    return
     pending_contract.insert_one({
         "username": message.from_user.username,
         "chat_id": int(message.chat.id),
