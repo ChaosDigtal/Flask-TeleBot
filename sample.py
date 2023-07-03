@@ -42,9 +42,9 @@ def gen_menu():
     markup.add(InlineKeyboardButton("Contact Support", url=f"https://t.me/fly15support", callback_data="ic_ContactSupport"))
     return markup
 
-def gen_crypto():
+def gen_crypto(rw = 2):
     markup = InlineKeyboardMarkup()
-    markup.row_width = 2
+    markup.row_width = rw
     markup.add(InlineKeyboardButton(cryptos[0], callback_data=cryptos[0]))
     markup.add(InlineKeyboardButton(cryptos[1], callback_data=cryptos[1]))
     markup.add(InlineKeyboardButton(cryptos[2], callback_data=cryptos[2]))
@@ -54,9 +54,9 @@ def gen_crypto():
     markup.add(InlineKeyboardButton(cryptos[6], callback_data=cryptos[6]))
     return markup
 
-def gen_withdraw():
+def gen_withdraw(rw = 2):
     markup = InlineKeyboardMarkup()
-    markup.row_width = 2
+    markup.row_width = rw
     markup.add(InlineKeyboardButton(cryptos[0], callback_data="w"+cryptos[0]))
     markup.add(InlineKeyboardButton(cryptos[1], callback_data="w"+cryptos[1]))
     markup.add(InlineKeyboardButton(cryptos[2], callback_data="w"+cryptos[2]))
@@ -66,9 +66,9 @@ def gen_withdraw():
     markup.add(InlineKeyboardButton(cryptos[6], callback_data="w"+cryptos[6]))
     return markup
 
-def gen_earning():
+def gen_earning(rw = 2):
     markup = InlineKeyboardMarkup()
-    markup.row_width = 2
+    markup.row_width = rw
     markup.add(InlineKeyboardButton(cryptos[0], callback_data="e"+cryptos[0]))
     markup.add(InlineKeyboardButton(cryptos[1], callback_data="e"+cryptos[1]))
     markup.add(InlineKeyboardButton(cryptos[2], callback_data="e"+cryptos[2]))
@@ -78,7 +78,7 @@ def gen_earning():
     markup.add(InlineKeyboardButton(cryptos[6], callback_data="e"+cryptos[6]))
     return markup
 
-def gen_wallet(budget, crypto):
+def gen_wallet(budget, crypto, rw = 2):
     yes_button = InlineKeyboardButton("Yes", callback_data='ic_yes:{}:{}'.format(budget, crypto))
     no_button = InlineKeyboardButton("No", callback_data="ic_no")
 
@@ -90,9 +90,10 @@ def gen_wallet(budget, crypto):
             ]   
         ]
     )
+    markup.row_width = rw
     return markup
 
-def gen_withdraw_confirm(username, crypto, withdraw, address):
+def gen_withdraw_confirm(username, crypto, withdraw, address, rw = 2):
     yes_button = InlineKeyboardButton("Yes", callback_data='wc_yes:{}:{}:{}:{}'.format(username, crypto, withdraw, address))
     no_button = InlineKeyboardButton("No", callback_data="wc_no")
 
@@ -104,45 +105,54 @@ def gen_withdraw_confirm(username, crypto, withdraw, address):
             ]   
         ]
     )
+    markup.row_width = rw
     return markup
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
     if call.data == "ic_Deposit":
-        bot.answer_callback_query(call.id, "Deposit")
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="What would you like to do?", reply_markup=gen_menu(0))
         bot.send_message(call.message.chat.id, "Please choose a crypto to deposit", reply_markup=gen_crypto())
     elif call.data == "ic_Withdraw":
-        bot.answer_callback_query(call.id, "Withdraw")
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="What would you like to do?", reply_markup=gen_menu(0))
         bot.send_message(call.message.chat.id, "Please choose a crypto to withdraw", reply_markup=gen_withdraw())
     elif call.data == "ic_ChkEarning":
-        bot.answer_callback_query(call.id, "ChkGroup")
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="What would you like to do?", reply_markup=gen_menu(0))
         bot.send_message(call.message.chat.id, "Please choose a crypto.", reply_markup=gen_earning())
     elif call.data == "ic_PbGroup":
-        bot.answer_callback_query(call.id, "PbGroup")
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="What would you like to do?", reply_markup=gen_menu(0))
     elif call.data == "ic_ContactSupport":
-        bot.answer_callback_query(call.id, "ContactSupport")
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="What would you like to do?", reply_markup=gen_menu(0))
     elif call.data == cryptos[0]:
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 0)
     elif call.data == cryptos[1]:
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 1)
     elif call.data == cryptos[2]:
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 2)
     elif call.data == cryptos[3]:
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 3)
     elif call.data == cryptos[4]:
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 4)
     elif call.data == cryptos[5]:
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 5)
     elif call.data == cryptos[6]:
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 6)
     elif call.data == ("w"+cryptos[0]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to withdraw", reply_markup=gen_withdraw(0))
         crypto = c23[cryptos[0]]
         user = User.find_one({"chat_id": call.message.chat.id})
         if user == None or user[crypto] == 0:
@@ -151,6 +161,7 @@ def callback_query(call):
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
         bot.register_next_step_handler(call.message, withdrawBudget, 0, user[crypto])
     elif call.data == ("w"+cryptos[1]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to withdraw", reply_markup=gen_withdraw(0))
         crypto = c23[cryptos[1]]
         user = User.find_one({"chat_id": call.message.chat.id})
         if user == None or user[crypto] == 0:
@@ -159,6 +170,7 @@ def callback_query(call):
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
         bot.register_next_step_handler(call.message, withdrawBudget, 1, user[crypto])
     elif call.data == ("w"+cryptos[2]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to withdraw", reply_markup=gen_withdraw(0))
         crypto = c23[cryptos[2]]
         user = User.find_one({"chat_id": call.message.chat.id})
         if user == None or user[crypto] == 0:
@@ -167,6 +179,7 @@ def callback_query(call):
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
         bot.register_next_step_handler(call.message, withdrawBudget, 2, user[crypto])
     elif call.data == ("w"+cryptos[3]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to withdraw", reply_markup=gen_withdraw(0))
         crypto = c23[cryptos[3]]
         user = User.find_one({"chat_id": call.message.chat.id})
         if user == None or user[crypto] == 0:
@@ -175,6 +188,7 @@ def callback_query(call):
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
         bot.register_next_step_handler(call.message, withdrawBudget, 3, user[crypto])
     elif call.data == ("w"+cryptos[4]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to withdraw", reply_markup=gen_withdraw(0))
         crypto = c23[cryptos[4]]
         user = User.find_one({"chat_id": call.message.chat.id})
         if user == None or user[crypto] == 0:
@@ -183,6 +197,7 @@ def callback_query(call):
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
         bot.register_next_step_handler(call.message, withdrawBudget, 4, user[crypto])
     elif call.data == ("w"+cryptos[5]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to withdraw", reply_markup=gen_withdraw(0))
         crypto = c23[cryptos[5]]
         user = User.find_one({"chat_id": call.message.chat.id})
         if user == None or user[crypto] == 0:
@@ -191,6 +206,7 @@ def callback_query(call):
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
         bot.register_next_step_handler(call.message, withdrawBudget, 5, user[crypto])
     elif call.data == ("w"+cryptos[6]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to withdraw", reply_markup=gen_withdraw(0))
         crypto = c23[cryptos[6]]
         user = User.find_one({"chat_id": call.message.chat.id})
         if user == None or user[crypto] == 0:
@@ -199,6 +215,7 @@ def callback_query(call):
         bot.send_message(call.message.chat.id, f'You can withdraw at most {user[crypto]}$.\n\n How much would you like to withdraw?')
         bot.register_next_step_handler(call.message, withdrawBudget, 6, user[crypto])
     elif call.data == ("e"+cryptos[0]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto.", reply_markup=gen_earning(0))
         crypto = c23[cryptos[0]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
@@ -206,6 +223,7 @@ def callback_query(call):
             earned = user[crypto]
         bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[0]}')
     elif call.data == ("e"+cryptos[1]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto.", reply_markup=gen_earning(0))
         crypto = c23[cryptos[1]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
@@ -213,6 +231,7 @@ def callback_query(call):
             earned = user[crypto]
         bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[1]}')    
     elif call.data == ("e"+cryptos[2]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto.", reply_markup=gen_earning(0))
         crypto = c23[cryptos[2]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
@@ -220,6 +239,7 @@ def callback_query(call):
             earned = user[crypto]
         bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[2]}')
     elif call.data == ("e"+cryptos[3]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto.", reply_markup=gen_earning(0))
         crypto = c23[cryptos[3]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
@@ -227,6 +247,7 @@ def callback_query(call):
             earned = user[crypto]
         bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[3]}')
     elif call.data == ("e"+cryptos[4]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto.", reply_markup=gen_earning(0))
         crypto = c23[cryptos[4]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
@@ -234,6 +255,7 @@ def callback_query(call):
             earned = user[crypto]
         bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[4]}')
     elif call.data == ("e"+cryptos[5]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto.", reply_markup=gen_earning(0))
         crypto = c23[cryptos[5]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
@@ -241,6 +263,7 @@ def callback_query(call):
             earned = user[crypto]
         bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[5]}')
     elif call.data == ("e"+cryptos[6]):
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto.", reply_markup=gen_earning(0))
         crypto = c23[cryptos[6]]
         user = User.find_one({"chat_id": call.message.chat.id})
         earned = 0
@@ -248,6 +271,7 @@ def callback_query(call):
             earned = user[crypto]
         bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[6]}')
     elif call.data == "ic_no":
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto.", reply_markup=gen_earning(0))
         bot.send_message(call.message.chat.id, text="Investment Canceled!\n\n/start command for menu!")
     elif call.data.split(':')[0] == "ic_yes":
         bot.send_message(call.message.chat.id, text=f'Please deposit to the following address:\n\n{wallet[int(call.data.split(":")[2])]}\n\nOnce you deposit, input your transaction hash to finish your investment')
