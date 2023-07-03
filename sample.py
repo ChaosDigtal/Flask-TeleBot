@@ -280,10 +280,10 @@ def callback_query(call):
         bot.send_message(call.message.chat.id, text=f'Please deposit to the following address:\n\n{wallet[int(call.data.split(":")[2])]}\n\nOnce you deposit, input your transaction hash to finish your investment')
         bot.register_next_step_handler(call.message, finishTransaction, call.data.split(':')[1], call.data.split(':')[2])
     elif call.data == "wc_no":
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Are you sure to withdraw {call.data.split(":")[3]}$ to follwing address?\n\n{call.data.split(":")[4]}', reply_markup=gen_wallet("", "", "", "", 0))
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Are you sure to withdraw {call.data.split(":")[3]}$ to follwing address?\n\n{call.data.split(":")[4]}', reply_markup=gen_wallet("1", 2, 3, "4", 0))
         bot.send_message(call.message.chat.id, "Withdraw canceled\n\n/start command for menu.")
     elif call.data.split(':')[0] == "wc_yes":
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Are you sure to withdraw {call.data.split(":")[3]}$ to follwing address?\n\n{call.data.split(":")[4]}', reply_markup=gen_wallet("", "", "", "", 0))
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Are you sure to withdraw {call.data.split(":")[3]}$ to follwing address?\n\n{call.data.split(":")[4]}', reply_markup=gen_wallet("1", 2, 3, "4", 0))
         array = call.data.split(':')
         pending_withdraw.insert_one({
             "username": array[1],
@@ -314,7 +314,7 @@ def finishTransaction(message, budget, crypto):
     print(message.text)
     if message.text == "/start":
         bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
-        return
+        return 
     bot.send_message(message.chat.id, text="Thanks for your investment!!!\n\nYour submission is pending and will be confirmed and accepted soon!\n\n/start command for menu!")
     pending_contract.insert_one({
         "username": message.from_user.username,
@@ -331,7 +331,7 @@ def withdrawBudget(message, crypto, limit):
         bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
     elif withdraw > limit:
         bot.send_message(message.chat.id, f'You can withdraw at most {limit}$.\n\nPlease input valid price!')
-        bot.register_next_step_handler(message, withdrawBudget, 0, limit)
+        bot.register_next_step_handler(message, withdrawBudget, crypto, limit)
     else:
         bot.send_message(message.chat.id, f'Please input your {cryptos[crypto]} address to withdraw')
         bot.register_next_step_handler(message, confirmWithdraw, crypto, withdraw)
