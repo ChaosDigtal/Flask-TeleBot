@@ -113,9 +113,11 @@ def gen_withdraw_confirm(username, crypto, withdraw, address, rw = 2):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
     if call.data == "ic_Deposit":
+        print("Deposit")
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="What would you like to do?", reply_markup=gen_menu(0))
         bot.send_message(call.message.chat.id, "Please choose a crypto to deposit", reply_markup=gen_crypto())
     elif call.data == "ic_Withdraw":
+        print("Withdraw")
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="What would you like to do?", reply_markup=gen_menu(0))
         bot.send_message(call.message.chat.id, "Please choose a crypto to withdraw", reply_markup=gen_withdraw())
     elif call.data == "ic_ChkEarning":
@@ -126,30 +128,37 @@ def callback_query(call):
     elif call.data == "ic_ContactSupport":
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="What would you like to do?", reply_markup=gen_menu(0))
     elif call.data == cryptos[0]:
+        print(call.data)
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 0)
     elif call.data == cryptos[1]:
+        print(call.data)
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 1)
     elif call.data == cryptos[2]:
+        print(call.data)
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 2)
     elif call.data == cryptos[3]:
+        print(call.data)
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 3)
     elif call.data == cryptos[4]:
+        print(call.data)
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 4)
     elif call.data == cryptos[5]:
+        print(call.data)
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 5)
     elif call.data == cryptos[6]:
+        print(call.data)
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Please choose a crypto to deposit", reply_markup=gen_crypto(0))
         bot.send_message(call.message.chat.id, "How much would you like to invest?")
         bot.register_next_step_handler(call.message, getBudget, 6)
@@ -273,9 +282,11 @@ def callback_query(call):
             earned = user[crypto]
         bot.send_message(call.message.chat.id, f'You earned {earned}$ over {cryptos[6]}')
     elif call.data.split(':')[0] == "ic_no":
+        print("No")
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Do you agree to invest {call.data.split(":")[1]}$ {cryptos[int(call.data.split(":")[2])]} to this platform?', reply_markup=gen_wallet(call.data.split(':')[1], call.data.split(':')[2], 0))
         bot.send_message(call.message.chat.id, text="Investment Canceled!\n\n/start command for menu!")
     elif call.data.split(':')[0] == "ic_yes":
+        print("Yes")
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Do you agree to invest {call.data.split(":")[1]}$ {cryptos[int(call.data.split(":")[2])]} to this platform?', reply_markup=gen_wallet(call.data.split(':')[1], call.data.split(':')[2], 0))
         bot.send_message(call.message.chat.id, text=f'Please deposit to the following address:\n\n{wallet[int(call.data.split(":")[2])]}\n\nOnce you deposit, input your transaction hash to finish your investment')
         bot.register_next_step_handler(call.message, finishTransaction, call.data.split(':')[1], call.data.split(':')[2])
@@ -306,6 +317,7 @@ def getBudget(message, crypto):
         return
     try:
         budget = float(message.text)
+        print(message.text + "$")
         bot.send_message(message.chat.id, f'Do you agree to invest {budget}$ {cryptos[crypto]} to this platform?', reply_markup=gen_wallet(budget, crypto))
     except ValueError:
         bot.send_message(message.chat.id, "Input valid number!")
@@ -315,7 +327,7 @@ def finishTransaction(message, budget, crypto):
     print(message.text)
     if message.text == "/start":
         bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
-        return 
+        return
     bot.send_message(message.chat.id, text="Thanks for your investment!!!\n\nYour submission is pending and will be confirmed and accepted soon!\n\n/start command for menu!")
     pending_contract.insert_one({
         "username": message.from_user.username,
