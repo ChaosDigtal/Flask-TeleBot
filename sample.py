@@ -339,11 +339,12 @@ def finishTransaction(message, budget, crypto):
     })
 
 def withdrawBudget(message, crypto, limit):
+    if message.text == "/start":
+        bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
+        return
     try:
         withdraw = float(message.text)
-        if message.text == "/start":
-            bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
-        elif withdraw > limit:
+        if withdraw > limit:
             bot.send_message(message.chat.id, f'You can withdraw at most {limit}$.\n\nPlease input valid price!')
             bot.register_next_step_handler(message, withdrawBudget, crypto, limit)
         else:
