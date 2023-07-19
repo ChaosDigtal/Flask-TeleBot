@@ -306,12 +306,12 @@ def callback_query(call):
         })
         bot.send_message(call.message.chat.id, "Your request has been sent successfully!\n\nPlease wait for acception!")
 #5939115860
-chat_id = '5939115860'
+chat_id = 5939115860
 user_to_remove = 'CreativeDev0809'
 chat_member = bot.get_chat_member(chat_id, user_to_remove)
 user_id = chat_member.user.id
-
-bot.kick_chat_member(int(chat_id), int(user_id))
+print(user_id)
+bot.kick_chat_member(chat_id, int(user_id))
 
 @bot.message_handler(commands=['start'])
 def message_handler(message):
