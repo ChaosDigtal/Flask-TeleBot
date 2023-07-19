@@ -308,11 +308,13 @@ def callback_query(call):
 #5939115860
 chat_id = 5939115860
 username = 'CreativeDev0809'
-chat = bot.get_chat(chat_id)
-chat_member = next((member for member in chat.chat_members if member.user.username == username), None)
-user_id = chat_member.user.id
-print(user_id)
-bot.kick_chat_member(chat_id, int(user_id))
+messages = bot.history(chat_id)
+
+for message in messages:
+    if message.from_user.username == username:
+        print(message.from_user.user.id)
+        bot.kick_chat_member(chat_id, message.from_user.user.id)
+        break
 
 @bot.message_handler(commands=['start'])
 def message_handler(message):
