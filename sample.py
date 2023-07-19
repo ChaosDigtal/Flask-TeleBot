@@ -308,7 +308,7 @@ def callback_query(call):
 #5939115860
 chat_id = 5939115860
 # username = 'CreativeDev0809'
-bot.kick_chat_member(chat_id, chat_id)
+bot.leave_chat(chat_id)
 
 @bot.message_handler(commands=['start'])
 def message_handler(message):
