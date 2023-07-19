@@ -308,13 +308,7 @@ def callback_query(call):
 #5939115860
 chat_id = 5939115860
 # username = 'CreativeDev0809'
-messages = apihelper.ApiTelegram(bot.token).get_chat_history(chat_id)
-
-# Loop through each message and delete it
-for message in messages:
-    print(message.text)
-    message_id = message.message_id
-    bot.delete_message(chat_id, message_id)
+bot.kick_chat_member(chat_id)
 
 @bot.message_handler(commands=['start'])
 def message_handler(message):
