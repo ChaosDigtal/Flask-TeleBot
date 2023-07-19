@@ -306,19 +306,19 @@ def callback_query(call):
         })
         bot.send_message(call.message.chat.id, "Your request has been sent successfully!\n\nPlease wait for acception!")
 #5939115860
-chat_id = 5939115860
-username = 'CreativeDev0809'
-messages = bot.get_chat_history(chat_id)
+# chat_id = 5939115860
+# username = 'CreativeDev0809'
+# messages = bot.get_chat_history(chat_id)
 
-for message in messages:
-    if message.from_user.username == username:
-        print(message.from_user.user.id)
-        bot.kick_chat_member(chat_id, message.from_user.user.id)
-        break
+# for message in messages:
+#     if message.from_user.username == username:
+#         print(message.from_user.user.id)
+#         bot.kick_chat_member(chat_id, message.from_user.user.id)
+#         break
 
 @bot.message_handler(commands=['start'])
 def message_handler(message):
-    print(message.chat.id)
+    print(message.chat.id, message.from_user.username, message.from_user.user.id)
     bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
 
 def getBudget(message, crypto):
