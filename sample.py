@@ -312,6 +312,7 @@ updates = bot.get_updates(chat_id)
 
 # Loop through each update and delete the corresponding message
 for update in updates:
+    print(update.message.text)
     message_id = update.message.message_id
     bot.delete_message(chat_id, message_id)
 
