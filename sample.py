@@ -298,9 +298,9 @@ def callback_query(call):
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Are you sure to withdraw {call.data.split(":")[3]}$ to follwing address?\n\n{call.data.split(":")[4]}', reply_markup=gen_withdraw_confirm("1", 2, 3, "4", 0))
         bot.send_message(call.message.chat.id, "Withdraw canceled\n\n/start command for menu.")
     elif call.data.split(':')[0] == "wc_yes":
+        array = call.data.split(':')
         print(array[1], cryptos[int(array[2])], array[3], array[4])
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Are you sure to withdraw {call.data.split(":")[3]}$ to follwing address?\n\n{call.data.split(":")[4]}', reply_markup=gen_withdraw_confirm("1", 2, 3, "4", 0))
-        array = call.data.split(':')
         pending_withdraw.insert_one({
             "username": array[1],
             "chat_id": call.message.chat.id,
