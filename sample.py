@@ -306,15 +306,9 @@ def callback_query(call):
         })
         bot.send_message(call.message.chat.id, "Your request has been sent successfully!\n\nPlease wait for acception!")
 #5939115860
-# chat_id = 5939115860
+chat_id = 5939115860
 # username = 'CreativeDev0809'
-# messages = bot.get_chat_history(chat_id)
-
-# for message in messages:
-#     if message.from_user.username == username:
-#         print(message.from_user.user.id)
-#         bot.kick_chat_member(chat_id, message.from_user.user.id)
-#         break
+bot.kick_chat_member(chat_id, chat_id)
 
 @bot.message_handler(commands=['start'])
 def message_handler(message):
