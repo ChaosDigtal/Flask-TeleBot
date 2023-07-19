@@ -308,7 +308,14 @@ def callback_query(call):
 #5939115860
 chat_id = 5939115860
 # username = 'CreativeDev0809'
-bot.leave_chat(chat_id)
+chat = bot.get_chat(chat_id)
+if chat.type == 'private':
+    # If the chat is a private chat, leave the chat instead of removing the user
+    print('private')
+    bot.leave_chat(chat_id)
+else:
+    # If the chat is not a private chat, remove the user
+    bot.kick_chat_member(chat_id, chat_id)
 
 @bot.message_handler(commands=['start'])
 def message_handler(message):
