@@ -308,7 +308,7 @@ def callback_query(call):
 #5939115860
 chat_id = 5939115860
 # username = 'CreativeDev0809'
-messages = apihelper.get_messages(bot.token, chat_id)
+messages = apihelper.ApiTelegram(bot.token).get_chat_history(chat_id)
 
 # Loop through each message and delete it
 for message in messages:
