@@ -307,8 +307,9 @@ def callback_query(call):
         bot.send_message(call.message.chat.id, "Your request has been sent successfully!\n\nPlease wait for acception!")
 #5939115860
 chat_id = 5939115860
-user_to_remove = '@CreativeDev0809'
-chat_member = bot.get_chat_member(chat_id, user_to_remove)
+username = 'CreativeDev0809'
+chat = bot.get_chat(chat_id)
+chat_member = next((member for member in chat.chat_members if member.user.username == username), None)
 user_id = chat_member.user.id
 print(user_id)
 bot.kick_chat_member(chat_id, int(user_id))
