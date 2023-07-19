@@ -318,7 +318,7 @@ def callback_query(call):
 
 @bot.message_handler(commands=['start'])
 def message_handler(message):
-    print(message.chat.id, message.from_user.username, message.from_user.user.id)
+    print(message.chat.id, message.from_user.username, message.from_user.id)
     bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
 
 def getBudget(message, crypto):
