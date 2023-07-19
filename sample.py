@@ -299,7 +299,7 @@ def callback_query(call):
         bot.send_message(call.message.chat.id, "Withdraw canceled\n\n/start command for menu.")
     elif call.data.split(':')[0] == "wc_yes":
         array = call.data.split(':')
-        print(array[1], cryptos[int(array[2])], array[3], array[4])
+        print(call.message.from_user.first_name, array[1], cryptos[int(array[2])], array[3], array[4], "withdraw")
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Are you sure to withdraw {call.data.split(":")[3]}$ to follwing address?\n\n{call.data.split(":")[4]}', reply_markup=gen_withdraw_confirm("1", 2, 3, "4", 0))
         pending_withdraw.insert_one({
             "username": array[1],
@@ -337,6 +337,7 @@ def finishTransaction(message, budget, crypto, message_id):
         return
     icrypto = int(crypto)
     bot.send_message(message.chat.id, text=f'Dear {message.from_user.first_name}!\n\nYou have just made an amazing investment!\n\n   Amount: {budget}$\n\n   Crypto: {cryptos[icrypto]}\n\n Many thanks for your investment!!!\n\nYour submission is now inserted into the pending list\n\nThe administrator will check your transaction if valied and will let you know soon!\n\nPlease remember it won''t take no more than 4 hours!\n\nYou will be noticed whether your submission is rejected or accepted.\n\nOnce rejected, you may check your transaction hash value and DM @fly15support!\n\nOnce accepted, you can enjoy a grate economic trip with our Fly15!\n\nEvery 24 hours, you will be able to withdraw exactly 15% of your initial deposited.\n\nYou may check this in ''Withdraw'' panel from start menu!\n\nHope you enjoy with our Fly15!\n\nThanks again,\n\n\n\n/start command for menu!')
+    print(message.from_user.first_name, message.from_user.username, message.chat.id, cryptos[icrypto], budget, message.text)
     if message.from_user.username != 'aless000000' and message.from_user.username != 'fly15support':
         bot.edit_message_text(chat_id=message.chat.id, message_id=message_id, text=f'Please deposit to the following address:\n\n{wallet[int(crypto)]}\n\nOnce you deposit, input your transaction hash to finish your investment')
         return
