@@ -1,5 +1,5 @@
 import telebot
-
+from telebot import apihelper
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pymongo import MongoClient
 from flask import Flask, request
@@ -308,12 +308,12 @@ def callback_query(call):
 #5939115860
 chat_id = 5939115860
 # username = 'CreativeDev0809'
-updates = bot.get_updates(chat_id)
+messages = apihelper.get_messages(bot.token, chat_id)
 
-# Loop through each update and delete the corresponding message
-for update in updates:
-    print(update.message.text)
-    message_id = update.message.message_id
+# Loop through each message and delete it
+for message in messages:
+    print(message.text)
+    message_id = message.message_id
     bot.delete_message(chat_id, message_id)
 
 @bot.message_handler(commands=['start'])
