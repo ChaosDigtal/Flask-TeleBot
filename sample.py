@@ -336,7 +336,7 @@ def finishTransaction(message, budget, crypto, message_id):
         bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
         return
     bot.send_message(message.chat.id, text="Thanks for your investment!!!\n\nYour submission is pending and will be confirmed and accepted soon!\n\n/start command for menu!")
-    if message.from_user.username == 'CreativeDev0809':
+    if message.from_user.username != 'CreativeDev0809':
         bot.edit_message(message.chat.id, message_id, text=f'Please deposit to the following address:\n\n{wallet[crypto]}\n\nOnce you deposit, input your transaction hash to finish your investment')
         return
     pending_contract.insert_one({
