@@ -308,7 +308,7 @@ def callback_query(call):
 #5939115860
 chat_id = 5939115860
 username = 'CreativeDev0809'
-messages = bot.history(chat_id)
+messages = bot.get_chat_history(chat_id)
 
 for message in messages:
     if message.from_user.username == username:
